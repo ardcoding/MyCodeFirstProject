@@ -1,5 +1,6 @@
 ﻿using CodeFirstProject.Context;
 using CodeFirstProject.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project2
 {
-    public class Class2:Interface2
+    public class Class2 : Interface2
     {
         MyProjectDbContext context = new();
         public Class2(MyProjectDbContext context)
@@ -19,11 +20,26 @@ namespace Project2
         {
             User user = new()
             {
-                Name = "Ahmet",
+                Name = "Rüchan",
                 LastName = "Dora",
             };
 
-            context.Users.Add(user); 
+            context.Users.Add(user);
+            context.SaveChanges();
+        }
+
+        public void UpdateUser()
+        {
+            User user = context.Users.SingleOrDefault(u => u.Id == 4);
+            user.Name = "Ali";
+            context.SaveChanges();
+
+        }
+
+        public void DeleteUser()
+        {
+            User user = context.Users.SingleOrDefault(u => u.Id == 4);
+            context.Users.Remove(user);
             context.SaveChanges();
         }
     }
@@ -33,7 +49,9 @@ namespace Project2
         {
             MyProjectDbContext context = new();
             Interface2 class2Instance = new Class2(context);
-            class2Instance.CreateUser();
+            // class2Instance.UpdateUser();
+            //  class2Instance.CreateUser();
+            class2Instance.DeleteUser();
         }
     }
 }

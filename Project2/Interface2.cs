@@ -9,5 +9,7 @@ namespace Project2
     public interface Interface2
     {
         void CreateUser();
+        void UpdateUser();
+        void DeleteUser();
     }
 }
